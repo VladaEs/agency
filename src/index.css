@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Base */
+  --color-bg: #F7F5F2;
+  --color-surface: #FFFFFF;
+  --color-text: #111111;
+  --color-text-muted: #6F6F6F;
+  --color-border: #E7E3DE;
+
+  /* Main accents */
+  --color-pink: #FF5FA2;
+  --color-lime: #C7F000;
+  --color-orange: #FF6A2A;
+  --color-yellow: #FFD84A;
+  --color-purple: #7B61FF;
+
+  /* Dark sections */
+  --color-dark: #111111;
+  --color-dark-soft: #1A1A1A;
+  --color-on-dark: #F8F8F8;
+
+  /* States */
+  --color-success: #2DBE73;
+  --color-error: #E5484D;
+
+
+
+
+  --font-heading: "Space Grotesk", sans-serif;
+  --font-body: "Manrope", sans-serif;
+
+  /* Font weights */
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+
+  /* Font sizes */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.75rem;
+  --text-5xl: 4rem;
+  --text-6xl: 5.5rem;
+  --text-hero: clamp(3.5rem, 8vw, 8rem);
+
+  /* Line heights */
+  --leading-tight: 0.95;
+  --leading-heading: 1.05;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.7;
+
+  /* Letter spacing */
+  --tracking-tight: -0.04em;
+  --tracking-heading: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.04em;
+
+}
+
+
+/* turn */
+/* :root {
+  
+  --color-bg: #F3F1EC;
+  --color-surface: #FAF9F6;
+  --color-surface-muted: #E8E5DF;
+
+  
+  --color-text: #111111;
+  --color-text-soft: #2A2A2A;
+  --color-muted: #77736D;
+
+  
+  --color-border: #D8D4CD;
+
+  
+  --color-accent: #D8FF45;
+  --color-accent-soft: #E8FF9A;
+
+  
+  --color-dark: #111111;
+  --color-dark-surface: #191919;
+  --color-on-dark: #F5F3EF;
+} */
