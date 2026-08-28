@@ -1,7 +1,31 @@
-.imageWrapper{
-    
-    width: 500px;
-    height: 500px;
+.imageWrapper {
+    width: min(100%, 34rem);
     position: relative;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    isolation: isolate;
+}
+
+.imageWrapper > img:first-child {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: 112%;
+    height: auto;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+.imageWrapper > img:last-child {
+    position: relative;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+@media (min-width: 1024px) {
+    .imageWrapper {
+        width: min(44%, 42rem);
+    }
 }

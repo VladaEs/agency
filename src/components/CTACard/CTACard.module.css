@@ -1,0 +1,158 @@
+.card,
+.actionCard {
+    min-height: 15rem;
+    border: 1px solid rgb(17 17 17 / 6%);
+    border-radius: 2rem;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 2rem;
+    color: var(--color-text);
+}
+
+.pink {
+    background: linear-gradient(135deg, #ffb8df 0%, #ff9bd2 100%);
+}
+
+.lime {
+    background: linear-gradient(135deg, #ddff70 0%, #c8ef48 100%);
+}
+
+.yellow {
+    background: linear-gradient(135deg, #ffe990 0%, #ffd86a 100%);
+}
+
+.orange {
+    background: linear-gradient(135deg, #ffad72 0%, #ff8653 100%);
+}
+
+.content {
+    max-width: 16rem;
+}
+
+.title {
+    margin: 0 0 0.65rem;
+    font-family: var(--font-heading);
+    font-size: clamp(1.15rem, 1.6vw, 1.45rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+}
+
+.description {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 0.94rem;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.actionCard {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-width: 0;
+    overflow: hidden;
+    background: #f1f1ef;
+}
+
+.actionLink {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    width: max-content;
+    max-width: calc(100% - 1.25rem);
+    padding: 1.25rem 1.1rem;
+    border-radius: 1.1rem;
+    background: #111;
+    color: #fff;
+    font-family: var(--font-heading);
+    font-size: clamp(1.1rem, 1.7vw, 1.9rem);
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    transform: rotate(-4deg);
+    box-shadow: 0 12px 24px rgb(0 0 0 / 18%);
+    transition: transform 180ms ease, background-color 180ms ease;
+}
+
+.actionLink:hover {
+    background: #2a2a2a;
+    transform: rotate(-2deg) translateY(-2px);
+}
+
+.actionLink:focus-visible {
+    outline: 3px solid var(--color-pink);
+    outline-offset: 4px;
+}
+
+.actionLink svg {
+    flex-shrink: 0;
+    width: 1.15rem;
+    height: 1.15rem;
+}
+
+.actionAccent {
+    position: absolute;
+    top: 1.5rem;
+    left: 50%;
+    width: 3.25rem;
+    height: 2.5rem;
+    transform: translateX(-50%);
+}
+
+.actionAccent span {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0.22rem;
+    height: 1.25rem;
+    border-radius: 999px;
+    background: #111;
+    transform-origin: bottom;
+}
+
+.actionAccent span:first-child {
+    transform: translateX(-50%) rotate(-42deg);
+}
+
+.actionAccent span:nth-child(2) {
+    height: 1.55rem;
+    transform: translateX(-50%);
+}
+
+.actionAccent span:last-child {
+    transform: translateX(-50%) rotate(42deg);
+}
+
+.smile {
+    position: absolute;
+    bottom: 1.1rem;
+    left: 50%;
+    width: 4.6rem;
+    height: auto;
+    transform: translateX(-50%) rotate(4deg);
+    stroke: #111;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+@media (max-width: 639px) {
+    .card,
+    .actionCard {
+        min-height: 13rem;
+        border-radius: 1.5rem;
+    }
+
+    .card {
+        padding: 1.5rem;
+    }
+}

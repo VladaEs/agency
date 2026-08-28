@@ -4,6 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap');
 @import "tailwindcss";
 
+
 @theme {
   /* Base */
   --color-bg: #F7F5F2;
@@ -93,3 +94,11 @@
   --color-dark-surface: #191919;
   --color-on-dark: #F5F3EF;
 } */
+
+
+html{
+  display: block;
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+}

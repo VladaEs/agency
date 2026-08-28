@@ -1,0 +1,46 @@
+.sectionContent {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+}
+
+.ctaCardsContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+}
+
+.caption {
+    margin: 1.5rem 0 0;
+    color: var(--color-text);
+    font-family: var(--font-heading);
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+}
+
+@media (min-width: 640px) {
+    .ctaCardsContainer {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .actionCard {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        min-height: 12rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .ctaCardsContainer {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(12rem, 0.78fr) minmax(0, 1fr) minmax(0, 1fr);
+        gap: 0.6rem;
+    }
+
+    .actionCard {
+        grid-column: auto;
+        grid-row: auto;
+        min-height: 15rem;
+    }
+}
