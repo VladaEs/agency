@@ -1,11 +1,7 @@
+import LogoMark from './LogoMark'
+
 function LogoBlack({ className = '', alt = 'Norda Logo' }) {
-  return (
-    <img
-      src="/logo/logo-black-cropped.svg"
-      alt={alt}
-      className={className}
-    />
-  )
+  return <LogoMark className={`text-black ${className}`} title={alt} />
 }
 
 export default LogoBlack

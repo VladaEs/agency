@@ -1,0 +1,22 @@
+.sectionContent {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+}
+
+.panel {
+    padding: clamp(2rem, 4vw, 4rem);
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 10%);
+    border-radius: 2rem;
+    background: var(--color-dark);
+    color: var(--color-on-dark);
+    box-shadow: 0 18px 45px rgb(17 17 17 / 10%);
+}
+
+@media (max-width: 639px) {
+    .panel {
+        padding: 1.75rem;
+        border-radius: 1.5rem;
+    }
+}

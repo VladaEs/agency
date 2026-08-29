@@ -1,0 +1,134 @@
+.card {
+    position: relative;
+    display: grid;
+    min-width: 0;
+    min-height: 25rem;
+    grid-template-columns: minmax(15rem, 0.8fr) minmax(18rem, 1.2fr);
+    overflow: hidden;
+    border: 1px solid rgb(17 17 17 / 4%);
+    border-radius: 2rem;
+    background: linear-gradient(135deg, #ff9ed0 0%, #f484c0 100%);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 30%);
+}
+
+.content {
+    position: relative;
+    z-index: 2;
+    align-self: center;
+    padding: clamp(2rem, 4vw, 4rem);
+}
+
+.eyebrow {
+    margin-bottom: 1.15rem;
+}
+
+.title {
+    max-width: 20rem;
+}
+
+.description {
+    max-width: 18rem;
+    margin: 1.25rem 0 1.75rem;
+    color: rgb(17 17 17 / 72%);
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.visual {
+    position: relative;
+    min-width: 0;
+}
+
+.visual::before {
+    position: absolute;
+    inset: 12% 5% 8% 0;
+    border-radius: 45% 55% 45% 55%;
+    background: rgb(255 255 255 / 13%);
+    content: '';
+}
+
+.visual img {
+    position: absolute;
+    top: 50%;
+    left: 48%;
+    width: min(52rem, 145%);
+    max-width: none;
+    transform: translate(-50%, -49%) rotate(-3deg);
+    filter: saturate(0.72) contrast(1.03);
+    mask-image: radial-gradient(ellipse 66% 65% at 52% 52%, #000 47%, transparent 80%);
+    mix-blend-mode: multiply;
+}
+
+.accentLines {
+    position: absolute;
+    z-index: 2;
+    top: 2.1rem;
+    right: 2.5rem;
+    width: 3rem;
+    height: 3rem;
+}
+
+.accentLines span {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 1.2rem;
+    height: 0.22rem;
+    border-radius: 999px;
+    background: var(--color-text);
+    transform-origin: right center;
+}
+
+.accentLines span:first-child {
+    transform: translateY(-50%) rotate(68deg);
+}
+
+.accentLines span:nth-child(2) {
+    left: 1rem;
+    transform: translateY(-50%) rotate(100deg);
+}
+
+.accentLines span:last-child {
+    top: 2.1rem;
+    left: 1.5rem;
+    transform: translateY(-50%) rotate(12deg);
+}
+
+@media (max-width: 899px) {
+    .card {
+        grid-template-columns: 1fr;
+    }
+
+    .content {
+        padding-bottom: 1rem;
+    }
+
+    .visual {
+        min-height: 17rem;
+    }
+
+    .visual img {
+        width: min(45rem, 115%);
+    }
+}
+
+@media (max-width: 639px) {
+    .card {
+        min-height: 0;
+        border-radius: 1.5rem;
+    }
+
+    .content {
+        padding: 1.75rem;
+    }
+
+    .visual {
+        min-height: 13rem;
+    }
+
+    .visual img {
+        width: 130%;
+    }
+}

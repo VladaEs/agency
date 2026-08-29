@@ -1,0 +1,76 @@
+.pricingPanel {
+    display: grid;
+    grid-template-columns: minmax(13rem, 1.1fr) minmax(0, 2fr) minmax(12rem, 0.8fr);
+    gap: 1rem;
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding: clamp(1.25rem, 2.5vw, 2.5rem);
+    border: 1px solid rgb(17 17 17 / 3%);
+    border-radius: 2rem;
+    background: rgb(17 17 17 / 2.2%);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 72%);
+}
+
+.intro {
+    align-self: start;
+    padding: clamp(1rem, 2.5vw, 2.5rem) clamp(0rem, 1vw, 1rem);
+}
+
+.eyebrow {
+    margin-bottom: 1.15rem;
+}
+
+.heading {
+    max-width: 15rem;
+}
+
+.plans {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+@media (max-width: 1099px) {
+    .pricingPanel {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .intro {
+        grid-column: 1 / -1;
+    }
+
+    .heading {
+        max-width: none;
+    }
+
+    .plans {
+        grid-column: 1 / -1;
+    }
+
+    .customPricing {
+        grid-column: 1 / -1;
+        min-height: 18rem;
+    }
+}
+
+@media (max-width: 639px) {
+    .pricingPanel {
+        display: block;
+        padding: 1.25rem;
+        border-radius: 1.5rem;
+    }
+
+    .intro {
+        margin-bottom: 1.5rem;
+        padding: 0.5rem 0.25rem;
+    }
+
+    .plans {
+        grid-template-columns: 1fr;
+    }
+
+    .customPricing {
+        min-height: 0;
+    }
+}
