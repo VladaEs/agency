@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import ContactCard from '@/components/ContactCard/ContactCard'
 import FAQItem from '@/components/FAQItem/FAQItem'
 import SectionWrapper from '@/components/sectionWrapper/SectionWrapper'
 import { TITLE_VARIANTS } from '@/components/Title/titleVariants'
@@ -41,8 +40,6 @@ const FAQContact = () => {
                         ))}
                     </div>
                 </section>
-
-                <ContactCard />
             </div>
         </SectionWrapper>
     )

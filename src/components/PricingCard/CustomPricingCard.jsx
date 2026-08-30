@@ -14,8 +14,8 @@ const PricingDoodle = () => (
     </svg>
 )
 
-const CustomPricingCard = ({ href = '#contact', id = 'quote', className = '' }) => (
-    <aside className={`${styles.customCard} ${className}`} id={id}>
+const CustomPricingCard = ({ href = '#contact', className = '' }) => (
+    <aside className={`${styles.customCard} ${className}`}>
         <PricingDoodle />
         <div className={styles.customContent}>
             <h3 className={styles.customTitle}>Need something different?</h3>

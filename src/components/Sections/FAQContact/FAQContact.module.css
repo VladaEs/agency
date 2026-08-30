@@ -1,7 +1,4 @@
 .sectionContent {
-    display: grid;
-    grid-template-columns: minmax(18rem, 0.78fr) minmax(0, 1.42fr);
-    gap: 1rem;
     width: 100%;
     max-width: 1440px;
     margin-inline: auto;
@@ -26,12 +23,6 @@
 
 .questions {
     margin-top: 1.25rem;
-}
-
-@media (max-width: 1099px) {
-    .sectionContent {
-        grid-template-columns: 1fr;
-    }
 }
 
 @media (max-width: 639px) {

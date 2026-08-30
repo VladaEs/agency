@@ -17,7 +17,7 @@ const MainSection = () => {
 
     return (
         <SectionWrapper>
-            <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-12 lg:flex-row lg:justify-between lg:gap-10 xl:gap-16">
+            <div className="mt-25 mx-auto flex max-w-[1440px] flex-col items-center gap-12 lg:flex-row lg:justify-between lg:gap-10 xl:gap-16">
                 <div className="w-full min-w-0 lg:w-1/2 lg:max-w-[720px]">
                     <Title variant={TITLE_VARIANTS.EYEBROW}>
                         Web Design &amp; Development

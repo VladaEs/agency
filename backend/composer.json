@@ -1,0 +1,5 @@
+{
+    "require": {
+        "milwad/laravel-validate": "^2.2"
+    }
+}

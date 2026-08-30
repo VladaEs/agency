@@ -3,7 +3,7 @@ const navigationLinks = [
   { href: '#services', label: 'Services' },
   { href: '#about', label: 'About' },
   { href: '#pricing', label: 'Pricing' },
-  { href: '/contact', label: 'Contact' },
+  { href: '#contact', label: 'Contact' },
 ]
 
 export default navigationLinks

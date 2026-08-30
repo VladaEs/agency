@@ -1,6 +1,7 @@
 import ArrowRightIcon from '@/components/Button/ArrowRightIcon'
 import Button from '@/components/Button/Button'
 import { BUTTON_SIZES } from '@/components/Button/buttonVariants'
+import { CURRENCY } from '@/data/products'
 import styles from './PricingCard.module.css'
 
 const CheckIcon = () => (
@@ -24,13 +25,14 @@ const PricingCard = ({
     title,
     description,
     price,
-    currency = '£',
+    currency = CURRENCY.symbol,
     pricePrefix = 'from',
     features = [],
     featured = false,
     badge,
-    href = '#quote',
+    href = '#contact',
     buttonLabel = 'Get started',
+    onSelect,
     className = '',
 }) => (
     <article className={`${styles.card} ${featured ? styles.featured : ''} ${className}`}>
@@ -60,6 +62,7 @@ const PricingCard = ({
 
         <Button
             href={href}
+            onClick={onSelect}
             size={BUTTON_SIZES.SMALL}
             className={styles.button}
             endIcon={<ArrowRightIcon />}

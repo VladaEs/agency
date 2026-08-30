@@ -1,20 +1,19 @@
-import aboutPortrait from '@/assets/about-portrait.jpg'
+
 
 export const testimonials = Object.freeze([
     {
-        quote: 'The new website completely changed how professional our business looks online. We’ve seen more enquiries since day one.',
-        author: 'John Smith',
+        quote: 'Very easy to work with and always quick to reply. The new website looks great and we’re really pleased with it.',
+        author: 'James Carter',
         company: 'Oak & Stone Construction',
-        avatar: aboutPortrait,
     },
     {
-        quote: 'The whole process was clear, collaborative and far easier than we expected. Our new site finally feels like our business.',
-        author: 'Maya Patel',
+        quote: 'We needed something simple and professional and that’s exactly what we got. Would definitely recommend.',
+        author: 'Sophie Bennett',
         company: 'Fieldwork Studio',
     },
     {
-        quote: 'Fast, thoughtful and reliable from the first call through launch. We now have a website we’re genuinely proud to share.',
-        author: 'Daniel Reed',
+        quote: 'Great communication throughout and everything was finished when promised. Really happy with the final result.',
+        author: 'Tom Harrison',
         company: 'North & Co.',
     },
 ])

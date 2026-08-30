@@ -1,7 +1,11 @@
+import { formatPrice, products } from './products'
+
+const [starterWebsite, businessWebsite] = products
+
 export const faqs = Object.freeze([
     {
         question: 'How much does a website cost?',
-        answer: 'Starter websites begin at £499, while larger business websites begin at £1,299. I’ll confirm a clear fixed quote before any work starts.',
+        answer: `Starter websites begin at ${formatPrice(starterWebsite.price)}, while larger business websites begin at ${formatPrice(businessWebsite.price)}. I’ll confirm a clear fixed quote before any work starts.`,
     },
     {
         question: 'How long does it take to build a website?',

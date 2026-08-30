@@ -3,10 +3,10 @@ import PricingCard from '@/components/PricingCard/PricingCard'
 import SectionWrapper from '@/components/sectionWrapper/SectionWrapper'
 import { TITLE_VARIANTS } from '@/components/Title/titleVariants'
 import Title from '@/components/Title/Title'
-import { pricingPlans } from '@/data/pricingPlans'
+import { products } from '@/data/products'
 import styles from './Pricing.module.css'
 
-const Pricing = () => (
+const Pricing = ({ onPlanSelect }) => (
     <SectionWrapper>
         <div className={styles.pricingPanel} id="pricing">
             <header className={styles.intro}>
@@ -19,8 +19,12 @@ const Pricing = () => (
             </header>
 
             <div className={styles.plans}>
-                {pricingPlans.map((plan) => (
-                    <PricingCard {...plan} key={plan.title} />
+                {products.map((product) => (
+                    <PricingCard
+                        {...product}
+                        key={product.id}
+                        onSelect={() => onPlanSelect?.(product.id)}
+                    />
                 ))}
             </div>
 
