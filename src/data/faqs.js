@@ -8,7 +8,7 @@ export const faqs = Object.freeze([
         answer: 'Most websites take between three and six weeks, depending on the size of the project and how quickly content and feedback are available.',
     },
     {
-        question: 'Do you provide hosting and domain?',
+        question: 'Do you provide hosting and domain support?',
         answer: 'Yes. I can help set up your domain, hosting and business email, or work with services you already use.',
     },
     {

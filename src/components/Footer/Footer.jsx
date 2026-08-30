@@ -3,7 +3,7 @@ import IconButton from '@/components/Button/IconButton'
 import LogoMark from '@/components/LogoBlack/LogoMark'
 import navigationLinks from '@/data/navigationLinks'
 import styles from './Footer.module.css'
-
+import {Link} from 'react-router-dom'
 const Footer = ({ brandName = 'Norda' }) => {
     const currentYear = new Date().getFullYear()
 
@@ -14,14 +14,14 @@ const Footer = ({ brandName = 'Norda' }) => {
     return (
         <footer className={styles.footer}>
             <div className={styles.content}>
-                <a className={styles.brand} href="/" aria-label={`${brandName} home`}>
+                <Link className={styles.brand} to="/" aria-label={`${brandName} home`}>
                     <LogoMark className={styles.logo} title="" />
                     <span>{brandName}</span>
-                </a>
+                </Link>
 
                 <nav className={styles.navigation} aria-label="Footer navigation">
                     {navigationLinks.map(({ href, label }) => (
-                        <a href={href} key={href}>{label}</a>
+                        <Link to={href} key={href}>{label}</Link>
                     ))}
                 </nav>
 

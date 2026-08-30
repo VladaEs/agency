@@ -2,29 +2,29 @@ import { useState } from 'react'
 import navigationLinks from '../../data/navigationLinks'
 import LogoBlack from '../LogoBlack/LogoBlack'
 import NavLinks from '../NavLinks/NavLinks'
-
+import {Link} from 'react-router-dom'
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
     <header className="w-full px-3 py-2 sm:px-5 sm:py-3">
       <div className="mx-auto flex max-w-[2040px] items-center justify-between rounded-[2rem] bg-white px-5 py-4 shadow-[0_10px_35px_rgba(15,23,42,0.06)] sm:px-8 lg:px-16 lg:py-6">
-        <a href="/" className="flex shrink-0 items-center gap-2.5" aria-label="Norda home">
+        <Link to="/" className="flex shrink-0 items-center gap-2.5" aria-label="Norda home">
           <LogoBlack className="h-14 w-14" />
           <span className="text-xl font-extrabold tracking-[-0.04em] text-black sm:text-2xl">
             Norda
           </span>
-        </a>
+        </Link>
 
         <NavLinks />
 
-        <a
-          href="#quote"
+        <Link
+          to="#quote"
           className="hidden items-center gap-6 rounded-full bg-black px-8 py-4 text-base font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 lg:flex"
         >
           <span>Get a Quote</span>
           <span className="text-2xl leading-none" aria-hidden="true">&rarr;</span>
-        </a>
+        </Link>
 
         <div className="relative lg:hidden">
           <button

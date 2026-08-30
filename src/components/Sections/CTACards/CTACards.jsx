@@ -7,7 +7,7 @@ import styles from './CTACards.module.css'
 
 const CTACards = () => (
     <SectionWrapper>
-        <div className={styles.sectionContent} id="work">
+        <div className={styles.sectionContent}>
             <div className={styles.ctaCardsContainer}>
                 {services.map((service, index) => (
                     <Fragment key={service.title}>
