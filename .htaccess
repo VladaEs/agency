@@ -1,0 +1,24 @@
+Options -Indexes -MultiViews
+
+RewriteEngine On
+
+# Разрешаем Hostinger проверять SSL
+RewriteRule ^\.well-known/ - [END]
+
+# API: сохраняем исходный URL /api/enquiries
+RewriteRule ^api(?:/.*)?$ backend/api.php [END,QSA]
+
+# Запрещаем прямой доступ к исходникам и backend
+RewriteRule ^(?:backend|src|node_modules|\.git)(?:/|$) - [F,END,NC]
+RewriteRule ^(?:package(?:-lock)?\.json|vite\.config\.js|README\.md|\.gitignore|\.oxlintrc\.json)$ - [F,END,NC]
+
+# Не разрешаем обращаться к dist/site напрямую через URL
+RewriteRule ^(?:dist|site)(?:/|$) - [F,END,NC]
+
+# Отдаём существующие файлы из dist через symlink site
+RewriteCond %{DOCUMENT_ROOT}/site/$1 -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/site/$1 -d
+RewriteRule ^(.+)$ site/$1 [END]
+
+# React SPA fallback
+RewriteRule ^ site/index.html [END]
