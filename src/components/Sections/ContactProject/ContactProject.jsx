@@ -5,6 +5,7 @@ import {
     formatPrice,
     products,
 } from '@/data/products'
+import useFetch from '@/hooks/useFetch'
 import styles from './ContactProject.module.css'
 
 const PlanIcon = ({ type }) => {
@@ -42,10 +43,10 @@ const ContactIcon = ({ type }) => {
 
     return <svg viewBox="0 0 24 24" aria-hidden="true">{paths[type]}</svg>
 }
-
 const ContactProject = ({ selectedPlanId, onPlanChange }) => {
     const [starter, business] = products
     const [localPlanId, setLocalPlanId] = useState(starter.id)
+    const { error, isLoading, isSuccess, request, reset } = useFetch()
     const activePlanId = selectedPlanId ?? localPlanId
     const selectPlan = (planId) => {
         if (onPlanChange) {
@@ -54,6 +55,35 @@ const ContactProject = ({ selectedPlanId, onPlanChange }) => {
         }
 
         setLocalPlanId(planId)
+    }
+
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+        reset()
+
+        const form = event.currentTarget
+        const formData = new FormData(form)
+
+        try {
+            await request('/api/enquiries', {
+                method: 'POST',
+                body: {
+                    planId: formData.get('plan'),
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    company: formData.get('company'),
+                    service: formData.get('service'),
+                    budget: formData.get('budget'),
+                    message: formData.get('message'),
+                    website: formData.get('website'),
+                },
+            })
+
+            form.reset()
+            selectPlan(starter.id)
+        } catch (requestError) {
+            if (requestError.name === 'AbortError') return
+        }
     }
 
     return (
@@ -94,10 +124,12 @@ const ContactProject = ({ selectedPlanId, onPlanChange }) => {
 
                 <form
                     className={styles.form}
-                    action="mailto:hello@yourname.dev"
-                    method="post"
-                    encType="text/plain"
+                    onSubmit={handleSubmit}
                 >
+                    <label className={styles.honeypot} aria-hidden="true">
+                        Website
+                        <input name="website" type="text" tabIndex="-1" autoComplete="off" />
+                    </label>
                     <fieldset className={styles.planFieldset}>
                         <legend>Which plan are you interested in?</legend>
                         <div className={styles.planGrid}>
@@ -106,7 +138,7 @@ const ContactProject = ({ selectedPlanId, onPlanChange }) => {
                                     <input
                                         type="radio"
                                         name="plan"
-                                        value={plan.title}
+                                        value={plan.id}
                                         checked={activePlanId === plan.id}
                                         onChange={() => selectPlan(plan.id)}
                                     />
@@ -161,9 +193,19 @@ const ContactProject = ({ selectedPlanId, onPlanChange }) => {
                         </label>
                     </div>
 
-                    <button className={styles.submit} type="submit">
-                        <span>Send enquiry</span><span aria-hidden="true">→</span>
+                    <button className={styles.submit} type="submit" disabled={isLoading}>
+                        <span>{isLoading ? 'Sending…' : 'Send enquiry'}</span><span aria-hidden="true">→</span>
                     </button>
+                    {error && (
+                        <p className={`${styles.formStatus} ${styles.formError}`} role="alert">
+                            {error.message}
+                        </p>
+                    )}
+                    {isSuccess && (
+                        <p className={`${styles.formStatus} ${styles.formSuccess}`} role="status">
+                            Thanks! Your enquiry has been sent.
+                        </p>
+                    )}
                     <p className={styles.privacy}>
                         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg>
                         Your information is safe and never shared.
