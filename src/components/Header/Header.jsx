@@ -5,7 +5,7 @@ import NavLinks from "../NavLinks/NavLinks";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 import Button from "@/components/Button/Button";
-import { BUTTON_SIZES, BUTTON_VARIANTS } from '@/components/Button/buttonVariants'
+import { BUTTON_SIZES } from '@/components/Button/buttonVariants'
 import ArrowRightIcon from '@/components/Button/ArrowRightIcon'
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -63,14 +63,16 @@ function Header() {
 
           <NavLinks />
 
+          <div className="hidden lg:block">
             <Button
                 href="#contact"
                 size={BUTTON_SIZES.LARGE}
                 endIcon={<ArrowRightIcon />}
-                className="w-full sm:w-auto"
+                className="w-auto"
             >
                 Get a free quote
             </Button>
+          </div>
 
           <div className="relative lg:hidden">
             <button

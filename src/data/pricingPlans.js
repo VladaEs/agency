@@ -1,2 +1,2 @@
-// Backwards-compatible alias. New code should import `products` directly.
-export { products as pricingPlans } from './products'
+// FALLBACK ONLY. Live pricing plans come from GET /api/plans via usePlans.
+export { fallbackProducts as fallbackPricingPlans } from './products'

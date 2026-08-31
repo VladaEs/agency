@@ -16,9 +16,11 @@ Environment::load(__DIR__ . '/.env');
 
 
 $router = new \Bramus\Router\Router();
+$router->setBasePath('/');
 $handler = new ApiHandler($router);
 
 $router->get('/api/health', [$handler, 'health']);
+$router->get('/api/plans', [$handler, 'getPlans']);
 $router->post('/api/enquiries', [$handler, 'createEnquiry']);
 
 $router->set404(function () use ($router) {

@@ -33,6 +33,78 @@ final class ApiHandler
         }
     }
 
+    public function getPlans(): void
+    {
+        try {
+            $rows = Database::connection()->query(
+                'SELECT
+                    p.p_id,
+                    p.p_slug,
+                    p.p_title,
+                    p.p_description,
+                    p.p_price_pense,
+                    p.p_currency,
+                    p.p_badge,
+                    p.p_is_featured,
+                    p.p_promotion_active,
+                    p.p_promotion_left,
+                    p.p_order,
+                    pf.pf_id,
+                    pf.pf_title,
+                    pf.pr_order
+                FROM plans p
+                LEFT JOIN plan_features pf ON pf.pf_plan_id = p.p_id
+                WHERE p.p_active = 1
+                ORDER BY
+                    COALESCE(p.p_order, 2147483647),
+                    p.p_id,
+                    COALESCE(pf.pr_order, 2147483647),
+                    pf.pf_id'
+            )->fetchAll();
+
+            $plansById = [];
+
+            foreach ($rows as $row) {
+                $planId = (int) $row['p_id'];
+
+                if (!isset($plansById[$planId])) {
+                    $isFeatured = (bool) $row['p_is_featured'];
+
+                    $plansById[$planId] = [
+                        'id' => $row['p_slug'],
+                        'title' => $row['p_title'],
+                        'description' => $row['p_description'],
+                        'price' => ((int) $row['p_price_pense']) / 100,
+                        'currency' => $row['p_currency'],
+                        'icon' => $isFeatured ? 'briefcase' : 'screen',
+                        'featured' => $isFeatured,
+                        'badge' => $row['p_badge'],
+                        'promotionActive' => (bool) $row['p_promotion_active'],
+                        'promotionLeft' => $row['p_promotion_left'] === null
+                            ? null
+                            : (int) $row['p_promotion_left'],
+                        'order' => $row['p_order'] === null ? null : (int) $row['p_order'],
+                        'features' => [],
+                    ];
+                }
+
+                if ($row['pf_id'] !== null && $row['pf_title'] !== null) {
+                    $plansById[$planId]['features'][] = $row['pf_title'];
+                }
+            }
+
+            $this->router->returnJson([
+                'source' => 'database',
+                'plans' => array_values($plansById),
+            ], 200, [
+                'Cache-Control' => 'public, max-age=300',
+            ]);
+        } catch (Throwable $exception) {
+            error_log('Unable to load plans: ' . $exception->getMessage());
+            $this->router->returnJson(['error' => 'Unable to load plans right now.'], 500);
+        }
+    }
+
     public function createEnquiry(): void
     {
         try {

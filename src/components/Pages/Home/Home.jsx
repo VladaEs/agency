@@ -10,11 +10,16 @@ import FAQContact from '@/components/Sections/FAQContact/FAQContact'
 import Footer from '@/components/Footer/Footer'
 import SelectedWork from '@/components/Sections/SelectedWork/SelectedWork'
 import ContactProject from '@/components/Sections/ContactProject/ContactProject'
-import { products } from '@/data/products'
+import usePlans from '@/hooks/usePlans'
 
 
 const Home = () => {
-    const [selectedPlanId, setSelectedPlanId] = useState(products[0].id)
+    const { plans, source: plansSource } = usePlans()
+    const [selectedPlanId, setSelectedPlanId] = useState(null)
+    const activePlanId = selectedPlanId === 'not-sure' ||
+        plans.some((plan) => plan.id === selectedPlanId)
+        ? selectedPlanId
+        : plans[0]?.id ?? 'not-sure'
 
     return (
         <>
@@ -24,11 +29,17 @@ const Home = () => {
           <SelectedWork />
           <CTACards />
           <AboutProcess name="Vladyslav" surname={"Voronin"}/>
-          <Pricing onPlanSelect={setSelectedPlanId} />
+          <Pricing
+            plans={plans}
+            plansSource={plansSource}
+            onPlanSelect={setSelectedPlanId}
+          />
           <Testimonials />
-          <FAQContact />
+          <FAQContact plans={plans} />
           <ContactProject
-            selectedPlanId={selectedPlanId}
+            plans={plans}
+            plansSource={plansSource}
+            selectedPlanId={activePlanId}
             onPlanChange={setSelectedPlanId}
           />
           <Footer />

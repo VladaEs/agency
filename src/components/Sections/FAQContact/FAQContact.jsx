@@ -3,11 +3,12 @@ import FAQItem from '@/components/FAQItem/FAQItem'
 import SectionWrapper from '@/components/sectionWrapper/SectionWrapper'
 import { TITLE_VARIANTS } from '@/components/Title/titleVariants'
 import Title from '@/components/Title/Title'
-import { faqs } from '@/data/faqs'
+import { createFaqs } from '@/data/faqs'
 import styles from './FAQContact.module.css'
 
-const FAQContact = () => {
+const FAQContact = ({ plans }) => {
     const [openIndex, setOpenIndex] = useState(null)
+    const faqs = createFaqs(plans)
 
     const toggleQuestion = (index) => {
         setOpenIndex((current) => (current === index ? null : index))

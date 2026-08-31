@@ -1,16 +1,19 @@
-export const CURRENCY = Object.freeze({
-    code: 'GBP',
-    symbol: '£',
-    locale: 'en-GB',
-})
-
-export const products = Object.freeze([
+/**
+ * FALLBACK ONLY.
+ *
+ * Live plan data must come from GET /api/plans. Keep this list in sync with
+ * the database only so the page remains usable while the API is unavailable.
+ */
+export const fallbackProducts = Object.freeze([
     {
         id: 'starter-website',
         title: 'Starter Website',
         description: 'Perfect for self-employed professionals and small businesses.',
         price: 499,
+        currency: 'GBP',
         icon: 'screen',
+        featured: false,
+        badge: null,
         features: [
             'Up to 5 pages',
             'Mobile responsive',
@@ -24,6 +27,7 @@ export const products = Object.freeze([
         title: 'Business Website',
         description: 'For growing businesses that need more features and flexibility.',
         price: 1299,
+        currency: 'GBP',
         icon: 'briefcase',
         featured: true,
         badge: 'Popular',
@@ -36,21 +40,3 @@ export const products = Object.freeze([
         ],
     },
 ])
-
-export const formatPrice = (price) =>
-    new Intl.NumberFormat(CURRENCY.locale, {
-        style: 'currency',
-        currency: CURRENCY.code,
-        maximumFractionDigits: 0,
-    }).format(price)
-
-export const contactPlanOptions = Object.freeze([
-    ...products,
-    {
-        id: 'not-sure',
-        title: 'Not sure yet',
-        description: 'I need help deciding what’s right for my business.',
-        icon: 'help',
-    },
-])
-

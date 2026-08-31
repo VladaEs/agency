@@ -1,7 +1,7 @@
 import ArrowRightIcon from '@/components/Button/ArrowRightIcon'
 import Button from '@/components/Button/Button'
 import { BUTTON_SIZES } from '@/components/Button/buttonVariants'
-import { CURRENCY } from '@/data/products'
+import { formatPrice } from '@/utils/formatPrice'
 import styles from './PricingCard.module.css'
 
 const CheckIcon = () => (
@@ -25,7 +25,7 @@ const PricingCard = ({
     title,
     description,
     price,
-    currency = CURRENCY.symbol,
+    currency,
     pricePrefix = 'from',
     features = [],
     featured = false,
@@ -45,10 +45,7 @@ const PricingCard = ({
 
         <p className={styles.price}>
             <span className={styles.pricePrefix}>{pricePrefix}</span>{' '}
-            <span className={styles.priceAmount}>
-                <span className={styles.currency}>{currency}</span>
-                {Number(price).toLocaleString('en-GB')}
-            </span>
+            <span className={styles.priceAmount}>{formatPrice(price, currency)}</span>
         </p>
 
         <ul className={styles.features}>

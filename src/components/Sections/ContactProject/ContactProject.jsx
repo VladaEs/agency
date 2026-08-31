@@ -1,12 +1,45 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import SectionWrapper from '@/components/sectionWrapper/SectionWrapper'
-import {
-    contactPlanOptions,
-    formatPrice,
-    products,
-} from '@/data/products'
 import useFetch from '@/hooks/useFetch'
+import { formatPrice } from '@/utils/formatPrice'
 import styles from '@/components/Sections/ContactProject/ContactProject.module.css'
+
+const NOT_SURE_PLAN = Object.freeze({
+    id: 'not-sure',
+    title: 'Not sure yet',
+    description: 'I need help deciding what’s right for my business.',
+    icon: 'help',
+})
+
+const createBudgetOptions = (plans) => {
+    const prices = [...new Set(
+        plans
+            .map((plan) => Number(plan.price))
+            .filter((price) => Number.isFinite(price) && price > 0)
+    )].sort((first, second) => first - second)
+
+    if (prices.length === 0) return []
+
+    const options = [{
+        value: `up-to-${prices[0]}`,
+        label: `Up to ${formatPrice(prices[0], plans[0]?.currency)}`,
+    }]
+
+    for (let index = 0; index < prices.length - 1; index += 1) {
+        options.push({
+            value: `${prices[index]}-${prices[index + 1]}`,
+            label: `${formatPrice(prices[index], plans[0]?.currency)} – ${formatPrice(prices[index + 1], plans[0]?.currency)}`,
+        })
+    }
+
+    const highestPrice = prices[prices.length - 1]
+    options.push({
+        value: `${highestPrice}-plus`,
+        label: `${formatPrice(highestPrice, plans[0]?.currency)}+`,
+    })
+
+    return options
+}
 
 const PlanIcon = ({ type }) => {
     if (type === 'briefcase') {
@@ -43,11 +76,21 @@ const ContactIcon = ({ type }) => {
 
     return <svg viewBox="0 0 24 24" aria-hidden="true">{paths[type]}</svg>
 }
-const ContactProject = ({ selectedPlanId, onPlanChange }) => {
-    const [starter, business] = products
-    const [localPlanId, setLocalPlanId] = useState(starter.id)
+const ContactProject = ({ plans, plansSource, selectedPlanId, onPlanChange }) => {
+    const defaultPlanId = plans[0]?.id ?? NOT_SURE_PLAN.id
+    const [localPlanId, setLocalPlanId] = useState(defaultPlanId)
     const { error, isLoading, isSuccess, request, reset } = useFetch()
-    const activePlanId = selectedPlanId ?? localPlanId
+    const validLocalPlanId = localPlanId === NOT_SURE_PLAN.id ||
+        plans.some((plan) => plan.id === localPlanId)
+        ? localPlanId
+        : defaultPlanId
+    const activePlanId = selectedPlanId ?? validLocalPlanId
+    const contactPlanOptions = useMemo(
+        () => [...plans, NOT_SURE_PLAN],
+        [plans]
+    )
+    const budgetOptions = useMemo(() => createBudgetOptions(plans), [plans])
+
     const selectPlan = (planId) => {
         if (onPlanChange) {
             onPlanChange(planId)
@@ -80,7 +123,7 @@ const ContactProject = ({ selectedPlanId, onPlanChange }) => {
             })
 
             form.reset()
-            selectPlan(starter.id)
+            selectPlan(defaultPlanId)
         } catch (requestError) {
             if (requestError.name === 'AbortError') return
         }
@@ -88,7 +131,12 @@ const ContactProject = ({ selectedPlanId, onPlanChange }) => {
 
     return (
         <SectionWrapper>
-            <section className={styles.section} id="contact" aria-labelledby="contact-title">
+            <section
+                className={styles.section}
+                id="contact"
+                aria-labelledby="contact-title"
+                data-plans-source={plansSource}
+            >
                 <div className={styles.intro}>
                     <span className={styles.eyebrow}>Contact</span>
                     <div className={styles.titleWrap}>
@@ -150,7 +198,9 @@ const ContactProject = ({ selectedPlanId, onPlanChange }) => {
                                         </span>
                                         <strong>{plan.title}</strong>
                                         <span className={styles.planDescription}>{plan.description}</span>
-                                        {plan.price && <small>From {formatPrice(plan.price)}</small>}
+                                        {Number.isFinite(Number(plan.price)) && (
+                                            <small>From {formatPrice(plan.price, plan.currency)}</small>
+                                        )}
                                     </span>
                                 </label>
                             ))}
@@ -195,7 +245,9 @@ const ContactProject = ({ selectedPlanId, onPlanChange }) => {
                             <span>What do you need? <b>*</b></span>
                             <select name="service" defaultValue="" required>
                                 <option value="" disabled>Select an option</option>
-                                {products.map((product) => <option key={product.id} value={product.id}>{product.title}</option>)}
+                                {plans.map((plan) => (
+                                    <option key={plan.id} value={plan.id}>{plan.title}</option>
+                                ))}
                                 <option value="redesign">Website redesign</option>
                                 <option value="other">Something else</option>
                             </select>
@@ -204,9 +256,9 @@ const ContactProject = ({ selectedPlanId, onPlanChange }) => {
                             <span>Budget</span>
                             <select name="budget" defaultValue="">
                                 <option value="" disabled>Select your budget</option>
-                                <option value={`up-to-${starter.price}`}>Up to {formatPrice(starter.price)}</option>
-                                <option value={`${starter.price}-${business.price}`}>{formatPrice(starter.price)} – {formatPrice(business.price)}</option>
-                                <option value={`${business.price}-plus`}>{formatPrice(business.price)}+</option>
+                                {budgetOptions.map((option) => (
+                                    <option key={option.value} value={option.value}>{option.label}</option>
+                                ))}
                             </select>
                         </label>
                         <label className={styles.messageField}>

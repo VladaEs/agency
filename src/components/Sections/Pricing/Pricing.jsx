@@ -3,12 +3,15 @@ import PricingCard from '@/components/PricingCard/PricingCard'
 import SectionWrapper from '@/components/sectionWrapper/SectionWrapper'
 import { TITLE_VARIANTS } from '@/components/Title/titleVariants'
 import Title from '@/components/Title/Title'
-import { products } from '@/data/products'
 import styles from './Pricing.module.css'
 
-const Pricing = ({ onPlanSelect }) => (
+const Pricing = ({ plans, plansSource, onPlanSelect }) => (
     <SectionWrapper>
-        <div className={styles.pricingPanel} id="pricing">
+        <div
+            className={styles.pricingPanel}
+            id="pricing"
+            data-plans-source={plansSource}
+        >
             <header className={styles.intro}>
                 <Title variant={TITLE_VARIANTS.EYEBROW} className={styles.eyebrow}>
                     Pricing
@@ -19,7 +22,7 @@ const Pricing = ({ onPlanSelect }) => (
             </header>
 
             <div className={styles.plans}>
-                {products.map((product) => (
+                {plans.map((product) => (
                     <PricingCard
                         {...product}
                         key={product.id}
