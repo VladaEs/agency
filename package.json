@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "dev:backend": "cd backend && php -S 127.0.0.1:8765 api.php",
-    "build": "vite build",
+    "build": "RAYON_NUM_THREADS=1 UV_THREADPOOL_SIZE=1 vite build",
     "lint": "oxlint",
     "preview": "vite preview"
   },
