@@ -24,4 +24,5 @@ dist-ssr
 *.sw?
 backend/vendor
 backend/.env
-public/images/
+public/images/me/*
+public/images/projects/*
