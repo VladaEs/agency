@@ -141,6 +141,7 @@ const ContactProject = ({ selectedPlanId, onPlanChange }) => {
                                         value={plan.id}
                                         checked={activePlanId === plan.id}
                                         onChange={() => selectPlan(plan.id)}
+                                        required
                                     />
                                     <span className={styles.planContent}>
                                         <span className={styles.planTopline}>
@@ -159,15 +160,36 @@ const ContactProject = ({ selectedPlanId, onPlanChange }) => {
                     <div className={styles.fields}>
                         <label>
                             <span>Your name <b>*</b></span>
-                            <input name="name" type="text" placeholder="e.g. John Smith" autoComplete="name" required />
+                            <input
+                                name="name"
+                                type="text"
+                                placeholder="e.g. John Smith"
+                                autoComplete="name"
+                                minLength="2"
+                                maxLength="45"
+                                required
+                            />
                         </label>
                         <label>
                             <span>Email address <b>*</b></span>
-                            <input name="email" type="email" placeholder="e.g. john@example.com" autoComplete="email" required />
+                            <input
+                                name="email"
+                                type="email"
+                                placeholder="e.g. john@example.com"
+                                autoComplete="email"
+                                maxLength="45"
+                                required
+                            />
                         </label>
                         <label>
                             <span>Business / Company name</span>
-                            <input name="company" type="text" placeholder="e.g. Acme Ltd." autoComplete="organization" />
+                            <input
+                                name="company"
+                                type="text"
+                                placeholder="e.g. Acme Ltd."
+                                autoComplete="organization"
+                                maxLength="45"
+                            />
                         </label>
                         <label>
                             <span>What do you need? <b>*</b></span>
@@ -189,7 +211,18 @@ const ContactProject = ({ selectedPlanId, onPlanChange }) => {
                         </label>
                         <label className={styles.messageField}>
                             <span>Tell me about your project <b>*</b></span>
-                            <textarea name="message" placeholder="Describe your project, goals and timeline..." rows="4" required />
+                            <textarea
+                                name="message"
+                                placeholder="Describe your project, goals and timeline..."
+                                rows="4"
+                                minLength="10"
+                                maxLength="5000"
+                                aria-describedby="project-message-hint"
+                                required
+                            />
+                            <small className={styles.fieldHint} id="project-message-hint">
+                                Please enter at least 10 characters.
+                            </small>
                         </label>
                     </div>
 

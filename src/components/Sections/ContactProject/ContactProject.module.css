@@ -167,11 +167,14 @@
 .planGrid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
+    align-items: stretch;
     gap: 0.8rem;
 }
 
 .plan {
     min-width: 0;
+    height: 100%;
     cursor: pointer;
 }
 
@@ -184,6 +187,7 @@
 
 .planContent {
     display: flex;
+    height: 100%;
     min-height: 11.5rem;
     flex-direction: column;
     padding: 1.1rem;
@@ -293,6 +297,12 @@
     color: var(--color-pink);
 }
 
+.fieldHint {
+    color: rgb(17 17 17 / 52%);
+    font-size: 0.72rem;
+    font-weight: 500;
+}
+
 .fields input,
 .fields select,
 .fields textarea {
@@ -399,8 +409,12 @@
     .lead br { display: none; }
     .squiggle { display: none; }
     .form { padding: 1.15rem; border-radius: 1.35rem; }
-    .planGrid { grid-template-columns: 1fr; }
-    .planContent { min-height: 0; }
+    .planGrid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+    }
+    .plan { height: auto; }
+    .planContent { height: auto; min-height: 0; }
     .fields { grid-template-columns: 1fr; }
     .messageField { grid-column: auto; }
 }

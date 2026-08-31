@@ -58,7 +58,7 @@ final class ApiHandler
             }
 
             $pdo = Database::connection();
-            $planId = $this->resolvePlanId($pdo, $data['planId']);
+            $plan = $this->resolvePlan($pdo, $data['planId']);
             $needsRecommendation = $data['planId'] === 'not-sure' ? 1 : 0;
             $now = date('H:i:s');
 
@@ -91,7 +91,7 @@ final class ApiHandler
             );
 
             $statement->execute([
-                'plan_id' => $planId,
+                'plan_id' => $plan['id'],
                 'needs_recommendation' => $needsRecommendation,
                 'name' => trim($data['name']),
                 'email' => strtolower(trim($data['email'])),
@@ -105,10 +105,28 @@ final class ApiHandler
             ]);
 
             $enquiryId = (int) $pdo->lastInsertId();
+            $emailSent = false;
+
+            try {
+                (new MailService())->sendEnquiryNotifications([
+                    'id' => $enquiryId,
+                    'name' => trim($data['name']),
+                    'email' => strtolower(trim($data['email'])),
+                    'company' => $this->nullableString($data['company'] ?? null),
+                    'planTitle' => $plan['title'],
+                    'service' => trim($data['service']),
+                    'budget' => $this->nullableString($data['budget'] ?? null),
+                    'message' => trim($data['message']),
+                ]);
+                $emailSent = true;
+            } catch (Throwable $mailException) {
+                error_log('SMTP notification failed: ' . $mailException->getMessage());
+            }
 
             $this->router->returnJson([
                 'message' => 'Enquiry received.',
                 'id' => $enquiryId,
+                'emailSent' => $emailSent,
             ], 201);
         } catch (InvalidArgumentException $exception) {
             $this->router->returnJson([
@@ -168,23 +186,23 @@ final class ApiHandler
         ];
     }
 
-    private function resolvePlanId(PDO $pdo, string $planSlug): ?int
+    private function resolvePlan(PDO $pdo, string $planSlug): array
     {
         if ($planSlug === 'not-sure') {
-            return null;
+            return ['id' => null, 'title' => 'Not sure yet'];
         }
 
         $statement = $pdo->prepare(
-            'SELECT p_id FROM plans WHERE p_slug = :slug AND p_active = 1 LIMIT 1'
+            'SELECT p_id, p_title FROM plans WHERE p_slug = :slug AND p_active = 1 LIMIT 1'
         );
         $statement->execute(['slug' => $planSlug]);
-        $planId = $statement->fetchColumn();
+        $plan = $statement->fetch();
 
-        if ($planId === false) {
+        if ($plan === false) {
             throw new InvalidArgumentException('The selected plan is not available.');
         }
 
-        return (int) $planId;
+        return ['id' => (int) $plan['p_id'], 'title' => $plan['p_title']];
     }
 
     private function nullableString(mixed $value): ?string
