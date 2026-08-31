@@ -4,6 +4,9 @@ import LogoBlack from "../LogoBlack/LogoBlack";
 import NavLinks from "../NavLinks/NavLinks";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
+import Button from "@/components/Button/Button";
+import { BUTTON_SIZES, BUTTON_VARIANTS } from '@/components/Button/buttonVariants'
+import ArrowRightIcon from '@/components/Button/ArrowRightIcon'
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFloating, setIsFloating] = useState(false);
@@ -60,15 +63,14 @@ function Header() {
 
           <NavLinks />
 
-          <a
-            href="#contact"
-            className="hidden items-center gap-6 rounded-full bg-black px-8 py-4 text-base font-semibold text-white transition hover:bg-neutral-800 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 lg:flex"
-          >
-            <span>Get a Quote</span>
-            <span className="text-2xl leading-none" aria-hidden="true">
-              &rarr;
-            </span>
-          </a>
+            <Button
+                href="#contact"
+                size={BUTTON_SIZES.LARGE}
+                endIcon={<ArrowRightIcon />}
+                className="w-full sm:w-auto"
+            >
+                Get a free quote
+            </Button>
 
           <div className="relative lg:hidden">
             <button

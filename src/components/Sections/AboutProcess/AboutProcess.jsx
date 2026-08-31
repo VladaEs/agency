@@ -6,7 +6,7 @@ import aboutPortrait from '@/assets/about-portrait.jpg'
 import { processSteps } from '@/data/processSteps'
 import styles from './AboutProcess.module.css'
 
-const AboutProcess = ({ name = 'Your Name' }) => (
+const AboutProcess = ({ name = 'Vladyslav' , surname = 'Voronin' }) => (
     <SectionWrapper>
         <div className={styles.sectionContent} id="about">
             <article className={`${styles.panel} ${styles.aboutPanel}`}>
@@ -45,7 +45,7 @@ const AboutProcess = ({ name = 'Your Name' }) => (
                             You’ll work directly with me from our first conversation to the day
                             your website goes live—and beyond.
                         </p>
-                        <span className={styles.signature}>{name}</span>
+                        <span className={styles.signature}>{name} {surname}</span>
                     </div>
                 </div>
             </article>

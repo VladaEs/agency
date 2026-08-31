@@ -35,9 +35,13 @@ const useFetch = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
 
-    useEffect(() => () => {
-        isMountedRef.current = false
-        abortControllerRef.current?.abort()
+    useEffect(() => {
+        isMountedRef.current = true
+
+        return () => {
+            isMountedRef.current = false
+            abortControllerRef.current?.abort()
+        }
     }, [])
 
     const reset = useCallback(() => {
@@ -103,6 +107,7 @@ const useFetch = () => {
                 abortControllerRef.current === controller
             ) {
                 setIsLoading(false)
+                abortControllerRef.current = null
             }
         }
     }, [])

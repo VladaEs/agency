@@ -23,7 +23,7 @@ const Home = () => {
           <ServicesBlack />
           <SelectedWork />
           <CTACards />
-          <AboutProcess />
+          <AboutProcess name="Vladyslav" surname={"Voronin"}/>
           <Pricing onPlanSelect={setSelectedPlanId} />
           <Testimonials />
           <FAQContact />

@@ -2,6 +2,7 @@ import {
   BUTTON_SIZES,
   BUTTON_VARIANTS,
 } from './buttonVariants'
+import styles from './Button.module.css'
 
 const variantClasses = {
   [BUTTON_VARIANTS.PRIMARY]:
@@ -37,12 +38,12 @@ function Button({
 
   return (
     <Component
-      className={`inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-full border-2 font-body font-semibold leading-none transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-2 ${variantClasses[safeVariant]} ${sizeClasses[safeSize]} ${className}`}
+      className={`${styles.button} inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-full border-2 font-body font-semibold leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-2 ${variantClasses[safeVariant]} ${sizeClasses[safeSize]} ${className}`}
       {...componentProps}
     >
-      {startIcon && <span aria-hidden="true">{startIcon}</span>}
-      <span>{children}</span>
-      {endIcon && <span aria-hidden="true">{endIcon}</span>}
+      {startIcon && <span className={styles.startIcon} aria-hidden="true">{startIcon}</span>}
+      <span className={styles.label}>{children}</span>
+      {endIcon && <span className={styles.endIcon} aria-hidden="true">{endIcon}</span>}
     </Component>
   )
 }

@@ -107,7 +107,7 @@ const ContactProject = ({ selectedPlanId, onPlanChange }) => {
                     <dl className={styles.details}>
                         <div className={styles.detail}>
                             <span className={`${styles.detailIcon} ${styles.pink}`}><ContactIcon type="email" /></span>
-                            <div><dt>Email</dt><dd><a href="mailto:hello@yourname.dev">hello@yourname.dev</a></dd></div>
+                            <div><dt>Email</dt><dd><a href="mailto:contact@codeforge.org.uk">contact@codeforge.org.uk</a></dd></div>
                         </div>
                         <div className={styles.detail}>
                             <span className={`${styles.detailIcon} ${styles.lime}`}><ContactIcon type="location" /></span>

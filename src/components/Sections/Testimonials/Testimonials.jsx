@@ -10,12 +10,15 @@ import styles from './Testimonials.module.css'
 
 const Testimonials = () => {
     const [activeIndex, setActiveIndex] = useState(0)
+    const [direction, setDirection] = useState(null)
 
     const showPrevious = () => {
+        setDirection('previous')
         setActiveIndex((current) => (current - 1 + testimonials.length) % testimonials.length)
     }
 
     const showNext = () => {
+        setDirection('next')
         setActiveIndex((current) => (current + 1) % testimonials.length)
     }
 
@@ -36,7 +39,18 @@ const Testimonials = () => {
 
             <div className={styles.testimonialContent} aria-live="polite">
                 <span className={styles.openQuote} aria-hidden="true">“</span>
-                <Testimonial {...testimonials[activeIndex]} />
+                <div
+                    className={`${styles.testimonialSlide} ${
+                        direction === 'previous'
+                            ? styles.slideFromLeft
+                            : direction === 'next'
+                                ? styles.slideFromRight
+                                : ''
+                    }`}
+                    key={activeIndex}
+                >
+                    <Testimonial {...testimonials[activeIndex]} />
+                </div>
             </div>
 
             <span className={styles.decorativeQuote} aria-hidden="true">”</span>

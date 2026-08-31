@@ -86,6 +86,7 @@
     line-height: 1;
     transform: rotate(-3deg);
     transform-origin: left center;
+    text-wrap: nowrap;
 }
 
 .processList {
