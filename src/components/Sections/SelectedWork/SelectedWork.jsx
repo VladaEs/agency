@@ -13,7 +13,8 @@ const SelectedWork = () => (
                 <Title variant={TITLE_VARIANTS.EYEBROW}>
                     Selected work
                 </Title>
-                <Link className={styles.viewAll} to="#contact">
+                
+                <Link className={styles.viewAll} to="https://github.com/VladaEs" target="_blank" rel="noopener noreferrer">
                     <span>View all projects</span>
                     <ArrowRightIcon />
                 </Link>

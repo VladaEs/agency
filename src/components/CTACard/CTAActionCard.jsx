@@ -1,7 +1,7 @@
 import ArrowRightIcon from '@/components/Button/ArrowRightIcon'
 import styles from './CTACard.module.css'
-import {Link} from 'react-router-dom'
-const CTAActionCard = ({ href = '#quote', className = '' }) => (
+
+const CTAActionCard = ({ href = '#contact', className = '' }) => (
     <article className={`${styles.actionCard} ${className}`}>
         <span className={styles.actionAccent} aria-hidden="true">
             <span />
@@ -9,10 +9,10 @@ const CTAActionCard = ({ href = '#quote', className = '' }) => (
             <span />
         </span>
 
-        <Link className={styles.actionLink} to={href}>
+        <a className={styles.actionLink} href={href}>
             <span>Let&rsquo;s Talk</span>
             <ArrowRightIcon />
-        </Link>
+        </a>
 
         <svg
             className={styles.smile}

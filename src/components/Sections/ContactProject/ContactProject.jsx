@@ -6,7 +6,7 @@ import {
     products,
 } from '@/data/products'
 import useFetch from '@/hooks/useFetch'
-import styles from './ContactProject.module.css'
+import styles from '@/components/Sections/ContactProject/ContactProject.module.css'
 
 const PlanIcon = ({ type }) => {
     if (type === 'briefcase') {
@@ -107,7 +107,7 @@ const ContactProject = ({ selectedPlanId, onPlanChange }) => {
                     <dl className={styles.details}>
                         <div className={styles.detail}>
                             <span className={`${styles.detailIcon} ${styles.pink}`}><ContactIcon type="email" /></span>
-                            <div><dt>Email</dt><dd><a href="mailto:contact@codeforge.org.uk">contact@codeforge.org.uk</a></dd></div>
+                            <div><dt>Email</dt><dd><a href="mailto:contact-norda@codeforge.org.uk">contact-norda@codeforge.org.uk</a></dd></div>
                         </div>
                         <div className={styles.detail}>
                             <span className={`${styles.detailIcon} ${styles.lime}`}><ContactIcon type="location" /></span>

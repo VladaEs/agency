@@ -7,6 +7,7 @@ const ProjectCard = ({
     tags = [],
     tone = 'pink',
     href = '#contact',
+    imageHref,
 }) => {
     const toneClass = styles[tone] ?? styles.pink
 
@@ -17,12 +18,15 @@ const ProjectCard = ({
                 href={href}
                 aria-label={`View ${title} project`}
             >
+                {imageHref ? <img src={imageHref} alt="" className={styles.projectImage} /> : (
                 <span className={styles.mockWindow} aria-hidden="true">
                     <span className={styles.mockHeader} />
                     <span className={styles.mockHeading} />
                     <span className={styles.mockCopy} />
                     <span className={styles.mockButton} />
                 </span>
+                )}
+
                 <span className={styles.projectArrow} aria-hidden="true">
                     <ArrowRightIcon />
                 </span>

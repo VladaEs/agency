@@ -30,7 +30,8 @@
   --color-error: #E5484D;
 
 
-
+  /* Layout */
+  --content-max-width: 1440px;
 
   --font-heading: "Space Grotesk", sans-serif;
   --font-body: "Manrope", sans-serif;

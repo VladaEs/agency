@@ -2,9 +2,10 @@ import ProcessStep from '@/components/ProcessStep/ProcessStep'
 import SectionWrapper from '@/components/sectionWrapper/SectionWrapper'
 import { TITLE_VARIANTS } from '@/components/Title/titleVariants'
 import Title from '@/components/Title/Title'
-import aboutPortrait from '@/assets/about-portrait.jpg'
+
 import { processSteps } from '@/data/processSteps'
 import styles from './AboutProcess.module.css'
+import { Link } from 'react-router-dom'
 
 const AboutProcess = ({ name = 'Vladyslav' , surname = 'Voronin' }) => (
     <SectionWrapper>
@@ -21,19 +22,10 @@ const AboutProcess = ({ name = 'Vladyslav' , surname = 'Voronin' }) => (
                     <figure className={styles.portraitFigure}>
                         <img
                             className={styles.portrait}
-                            src={aboutPortrait}
+                            src="/images/me/me.jpg"
                             alt="Independent web developer"
                         />
-                        <figcaption className={styles.photoCredit}>
-                            Photo by{' '}
-                            <a
-                                href="https://unsplash.com/@ernestflowerss"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                Ernest Flowers
-                            </a>
-                        </figcaption>
+
                     </figure>
 
                     <div className={styles.bio}>
@@ -46,6 +38,16 @@ const AboutProcess = ({ name = 'Vladyslav' , surname = 'Voronin' }) => (
                             your website goes live—and beyond.
                         </p>
                         <span className={styles.signature}>{name} {surname}</span>
+                        <p className={styles.githubPrompt}>
+                            Curious about the code behind my work?
+                            <Link
+                                to="https://github.com/VladaEs"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <span className={styles.githubLabel}>Explore my GitHub →</span>
+                            </Link>
+                        </p>
                     </div>
                 </div>
             </article>

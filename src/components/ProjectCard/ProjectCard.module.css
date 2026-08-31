@@ -32,6 +32,13 @@
 .lime {
     background: linear-gradient(135deg, #e1ff78 0%, #b7dc38 100%);
 }
+.projectImage{
+    
+    height: 100%;
+    object-fit: cover;
+    object-position: top left;
+
+}
 
 .mockWindow {
     position: absolute;

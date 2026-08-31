@@ -1,14 +1,21 @@
 export const projects = Object.freeze([
     {
-        title: 'Studio Hair',
-        description: 'Website design and development for a local hair salon.',
+        title: 'Influencezilla',
+        description:
+            'A bold, immersive website for a creative marketing agency, built around vibrant gradients and clear service navigation.',
         tags: ['Web Design', 'Development', 'SEO'],
         tone: 'pink',
+        imageHref: "images/projects/GradientDesign.png",
+        href: 'https://studiohair.example.com',
     },
     {
-        title: 'GreenLeaf Landscaping',
-        description: 'New website for a landscaping and garden maintenance company.',
+        title: 'Phantom Gunsmiths Ltd',
+        description:
+            'A straightforward, product-focused website for a Surrey firearms sales and repair specialist.',
         tags: ['Web Design', 'Development', 'SEO'],
         tone: 'lime',
+        imageHref: "images/projects/phantom.png",
+        href: 'https://phantomgunsmiths.co.uk/',
     },
+    
 ])

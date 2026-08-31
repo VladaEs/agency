@@ -3,7 +3,7 @@
     grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.6fr);
     gap: 1rem;
     width: 100%;
-    max-width: 1440px;
+    max-width: var(--content-max-width);
     margin-inline: auto;
 }
 
@@ -43,7 +43,7 @@
     border: 0.4rem solid rgb(255 255 255 / 70%);
     border-radius: 50%;
     object-fit: cover;
-    object-position: 50% 24%;
+    object-position: 0% 24%;
     box-shadow: 0 14px 30px rgb(17 17 17 / 9%);
 }
 
@@ -89,6 +89,21 @@
     text-wrap: nowrap;
 }
 
+.bio .githubPrompt {
+    margin-top: 1.5rem;
+    color: rgb(111 111 111 / 88%);
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+.githubLabel {
+    display: block;
+    margin-top: 0.2rem;
+    color: var(--color-text);
+    font-weight: 700;
+}
+
 .processList {
     position: relative;
     display: grid;
@@ -113,6 +128,12 @@
     content: '';
 }
 
+
+@media (max-width: 1264px) {
+    .signature {
+        text-wrap: wrap;
+    }
+}
 @media (max-width: 1099px) {
     .sectionContent {
         grid-template-columns: 1fr;
