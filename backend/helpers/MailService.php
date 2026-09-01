@@ -1,75 +1,43 @@
 <?php
 
-use Symfony\Component\Mailer\Mailer;
-use Symfony\Component\Mailer\Transport\Smtp\EsmtpTransport;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\Mime\Email;
-
 final class MailService
 {
-    private Mailer $mailer;
-    private Address $from;
-    private Address $admin;
+    private EmailSender $sender;
+    private string $adminEmail;
+    private string $replyToEmail;
 
-    public function __construct()
+    public function __construct(?EmailSender $sender = null)
     {
-        $host = $this->required('SMTP_HOST');
-        $port = (int) $this->required('SMTP_PORT');
-        $username = $this->required('SMTP_USERNAME');
-        $password = $this->required('SMTP_PASSWORD');
-        $encryption = strtolower(Environment::get('SMTP_ENCRYPTION', 'tls'));
-
-        if (!in_array($encryption, ['tls', 'ssl', 'none'], true)) {
-            throw new RuntimeException('SMTP_ENCRYPTION must be tls, ssl, or none.');
-        }
-
-        $transport = new EsmtpTransport(
-            $host,
-            $port,
-            $encryption === 'ssl'
+        $this->sender = $sender ?? new EmailSender();
+        $this->adminEmail = $this->validEmail(
+            $this->required('SMTP_ADMIN_EMAIL'),
+            'SMTP_ADMIN_EMAIL'
         );
-        $transport->setUsername($username);
-        $transport->setPassword($password);
-
-        if ($encryption === 'tls') {
-            $transport->setRequireTls(true);
-        } elseif ($encryption === 'none') {
-            $transport->setAutoTls(false);
-        }
-
-        $this->mailer = new Mailer($transport);
-        $this->from = new Address(
-            $this->validEmail($this->required('SMTP_FROM_EMAIL'), 'SMTP_FROM_EMAIL'),
-            Environment::get('SMTP_FROM_NAME', 'Norda')
-        );
-        $this->admin = new Address(
-            $this->validEmail($this->required('SMTP_ADMIN_EMAIL'), 'SMTP_ADMIN_EMAIL')
+        $this->replyToEmail = $this->validEmail(
+            Environment::get('SMTP_REPLY_TO_EMAIL', $this->adminEmail),
+            'SMTP_REPLY_TO_EMAIL'
         );
     }
 
     public function sendEnquiryNotifications(array $enquiry): void
     {
-        $customer = new Address($enquiry['email'], $enquiry['name']);
         $id = (int) $enquiry['id'];
 
-        $adminEmail = (new Email())
-            ->from($this->from)
-            ->to($this->admin)
-            ->replyTo($customer)
-            ->subject("New website enquiry #{$id}")
-            ->text($this->adminText($enquiry))
-            ->html($this->adminHtml($enquiry));
+        $this->sender->send(
+            toEmail: $this->adminEmail,
+            subject: "New website enquiry #{$id}",
+            textBody: $this->adminText($enquiry),
+            htmlBody: $this->adminHtml($enquiry),
+            replyToEmail: $enquiry['email']
+        );
 
-        $customerEmail = (new Email())
-            ->from($this->from)
-            ->to($customer)
-            ->replyTo($this->admin)
-            ->subject('We received your enquiry')
-            ->text($this->customerText($enquiry))
-            ->html($this->customerHtml($enquiry));
-
-        $this->mailer->send($adminEmail);
-        $this->mailer->send($customerEmail);
+        $this->sender->send(
+            toEmail: $enquiry['email'],
+            subject: 'We received your enquiry',
+            textBody: $this->customerText($enquiry),
+            htmlBody: $this->customerHtml($enquiry),
+            replyToEmail: $this->replyToEmail
+        );
     }
 
     private function adminText(array $enquiry): string
@@ -169,9 +137,8 @@ final class MailService
     {
         $id = (int) $enquiry['id'];
         $name = $this->escape($enquiry['name']);
-        $adminEmail = $this->admin->getAddress();
         $replyHref = $this->escape(
-            'mailto:' . $adminEmail . '?subject=' . rawurlencode("More details for enquiry #{$id}")
+            'mailto:' . $this->replyToEmail . '?subject=' . rawurlencode("More details for enquiry #{$id}")
         );
         $summaryRows =
             $this->detailRow('Selected plan', $enquiry['planTitle']) .

@@ -192,7 +192,7 @@ final class ApiHandler
                 ]);
                 $emailSent = true;
             } catch (Throwable $mailException) {
-                error_log('SMTP notification failed: ' . $mailException->getMessage());
+                error_log('SMTP2GO API notification failed: ' . $mailException->getMessage());
             }
 
             $this->router->returnJson([

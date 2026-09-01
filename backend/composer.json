@@ -1,6 +1,8 @@
 {
     "require": {
         "milwad/laravel-validate": "^2.2",
-        "symfony/mailer": "^7.4"
+        "symfony/mailer": "^7.4",
+        "guzzlehttp/guzzle": "6.3|^7.0.1",
+        "smtp2go-oss/smtp2go-php": "^1.2"
     }
 }

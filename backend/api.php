@@ -8,6 +8,9 @@ if (PHP_SAPI === 'cli-server' && is_file($filename)) {
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/helpers/Environment.php';
 require_once __DIR__ . '/helpers/Database.php';
+require_once __DIR__ . '/helpers/EmailConnector.php';
+require_once __DIR__ . '/helpers/Smtp2GoConnector.php';
+require_once __DIR__ . '/helpers/EmailSender.php';
 require_once __DIR__ . '/helpers/MailService.php';
 require_once __DIR__ . '/helpers/Router.php';
 require_once __DIR__ . '/Controllers/apiHandler.php';
