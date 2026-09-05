@@ -105,6 +105,24 @@ final class ApiHandler
         }
     }
 
+    public function logVisit(): void
+    {
+        try {
+            $logged = (new VisitorLogger())->log();
+
+            $this->router->returnJson([
+                'logged' => $logged,
+            ], $logged ? 201 : 200, [
+                'Cache-Control' => 'no-store',
+            ]);
+        } catch (Throwable $exception) {
+            error_log('Unable to log visitor: ' . $exception->getMessage());
+            $this->router->returnJson(['error' => 'Unable to log this visit.'], 500, [
+                'Cache-Control' => 'no-store',
+            ]);
+        }
+    }
+
     public function createEnquiry(): void
     {
         try {

@@ -8,6 +8,7 @@ if (PHP_SAPI === 'cli-server' && is_file($filename)) {
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/helpers/Environment.php';
 require_once __DIR__ . '/helpers/Database.php';
+require_once __DIR__ . '/helpers/VisitorLogger.php';
 require_once __DIR__ . '/helpers/EmailConnector.php';
 require_once __DIR__ . '/helpers/Smtp2GoConnector.php';
 require_once __DIR__ . '/helpers/EmailSender.php';
@@ -24,6 +25,7 @@ $handler = new ApiHandler($router);
 
 $router->get('/api/health', [$handler, 'health']);
 $router->get('/api/plans', [$handler, 'getPlans']);
+$router->post('/api/visits', [$handler, 'logVisit']);
 $router->post('/api/enquiries', [$handler, 'createEnquiry']);
 
 $router->set404(function () use ($router) {
