@@ -33,7 +33,7 @@ final class VisitorLogger
                 vv_visited_at,
                 vv_expires_at
             ) VALUES (
-                INET6_ATON(:ip_address),
+                :ip_address,
                 :visit_bucket,
                 :visited_at,
                 :expires_at
