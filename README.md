@@ -15,6 +15,10 @@ The React Compiler is not enabled on this template because of its impact on dev 
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
 
+## Google tag
+
+Set `GOOGLE_TAG_ID=AW-18412347426` in `backend/.env`. The app fetches this public ID from `/api/config` and initializes Google's tag once for all React routes. Changes to the ID take effect on the next page load without rebuilding the frontend. Leave the value empty to disable the tag. The endpoint exposes only the tag ID; other backend environment values remain private.
+
 ## Backend email with SMTP2GO
 
 The enquiry endpoint sends its admin notification and customer confirmation through the SMTP2GO API.

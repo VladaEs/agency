@@ -24,6 +24,7 @@ $router->setBasePath('/');
 $handler = new ApiHandler($router);
 
 $router->get('/api/health', [$handler, 'health']);
+$router->get('/api/config', [$handler, 'getPublicConfig']);
 $router->get('/api/plans', [$handler, 'getPlans']);
 $router->post('/api/visits', [$handler, 'logVisit']);
 $router->post('/api/enquiries', [$handler, 'createEnquiry']);

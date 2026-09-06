@@ -22,6 +22,15 @@ final class ApiHandler
         $this->validatorFactory = new Factory($translator);
     }
 
+    public function getPublicConfig(): void
+    {
+        $googleTagId = trim(Environment::get('GOOGLE_TAG_ID', '') ?? '');
+
+        $this->router->returnJson([
+            'googleTagId' => preg_match('/^AW-[0-9]+$/', $googleTagId) ? $googleTagId : null,
+        ], 200, ['Cache-Control' => 'no-store']);
+    }
+
     public function health(): void
     {
         try {

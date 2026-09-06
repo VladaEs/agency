@@ -3,8 +3,10 @@ import Contact from '@/components/Pages/Contact/Contact';
 import Projects from '@/components/Pages/Projects/Projects';
 import {Routes, Route } from 'react-router-dom';
 import useVisitLogger from '@/hooks/useVisitLogger'
+import useGoogleTag from '@/hooks/useGoogleTag'
 
 function App() {
+  useGoogleTag()
   useVisitLogger()
 
   return (

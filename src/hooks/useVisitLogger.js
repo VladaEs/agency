@@ -1,9 +1,7 @@
 import { useEffect } from 'react'
+import useFetch from '@/hooks/useFetch'
 
-const API_BASE_URL = (import.meta.env.VITE_API_URL ?? '').replace(/\/$/, '')
 const VISIT_LOGGED_KEY = 'norda:visit-logged'
-
-let visitRequest = null
 
 const wasLoggedThisSession = () => {
     try {
@@ -21,34 +19,27 @@ const markLoggedThisSession = () => {
     }
 }
 
-const recordVisit = () => {
-    if (wasLoggedThisSession()) return Promise.resolve()
-    if (visitRequest) return visitRequest
-
-    visitRequest = fetch(`${API_BASE_URL}/api/visits`, {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-        },
-        keepalive: true,
-    })
-        .then((response) => {
-            if (response.ok) markLoggedThisSession()
-        })
-        .catch(() => {
-            // Visitor logging must never interrupt the website experience.
-        })
-        .finally(() => {
-            visitRequest = null
-        })
-
-    return visitRequest
-}
-
 const useVisitLogger = () => {
+    const { request } = useFetch()
+
     useEffect(() => {
+        if (wasLoggedThisSession()) return
+
+        const recordVisit = async () => {
+            try {
+                await request('/api/visits', {
+                    method: 'POST',
+                    headers: { Accept: 'application/json' },
+                    keepalive: true,
+                })
+                markLoggedThisSession()
+            } catch {
+                // Visitor logging must never interrupt the website experience.
+            }
+        }
+
         void recordVisit()
-    }, [])
+    }, [request])
 }
 
 export default useVisitLogger
