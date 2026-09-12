@@ -150,11 +150,7 @@ final class ApiHandler
             }
 
             $data = $validator->validated();
-
-            if (($data['website'] ?? '') !== '') {
-                // Silently accept honeypot submissions so bots cannot adapt.
-                $this->router->returnJson(['message' => 'Enquiry received.'], 201);
-            }
+            $isHoneypotted = ($data['website'] ?? '') !== '' ? 1 : 0;
 
             $pdo = Database::connection();
             $plan = $this->resolvePlan($pdo, $data['planId']);
@@ -171,6 +167,7 @@ final class ApiHandler
                     eq_service,
                     eq_budget,
                     eq_message,
+                    eq_is_honeypotted,
                     eq_status,
                     eq_created_at,
                     eq_updated_at
@@ -183,6 +180,7 @@ final class ApiHandler
                     :service,
                     :budget,
                     :message,
+                    :is_honeypotted,
                     :status,
                     :created_at,
                     :updated_at
@@ -198,6 +196,7 @@ final class ApiHandler
                 'service' => trim($data['service']),
                 'budget' => $this->nullableString($data['budget'] ?? null),
                 'message' => trim($data['message']),
+                'is_honeypotted' => $isHoneypotted,
                 'status' => 'NEW',
                 'created_at' => $now,
                 'updated_at' => $now,
